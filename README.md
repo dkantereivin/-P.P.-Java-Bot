@@ -48,11 +48,13 @@ __Where do I put my discord token?__ -P.P.-Java-Bot/config.conf is where all of 
 __Will others be able to see the token?__ No, he github file has been set up to automatically ignore all .conf files so your discord token isn't published.
 
 ## 4. Running the code
-- To run the code you must create your own bot and discord server
-- [How to set up your own bot](https://discordpy.readthedocs.io/en/latest/discord.html)
-- If you run the code you will host your bot from your computer, it is worth noting that while this is an easy way of hosting a bot it is not scalable, we will be running the end bot on a dedicated server
-- Try using the !ping command to check you have everything working
-- Once you have tested your bot, you can stop the code from running, it will take a few minutes for discord to update the bots status to offline
+__How do I check my progress?__ To run the code you must create your own discord bot client and discord server
+
+__How do I set up my own discord bot client?__ [How to set up your own bot](https://discordpy.readthedocs.io/en/latest/discord.html)
+
+__How do I know if it has been set up correctly?__ First launch the project from App.java, then try using the !ping command to check you have everything working
+
+_Why is my bot still appearing online?__ Once you stop your code from running it will take a few minutes for discord to update the bots status to offline, your bot should no longer be running and you can test this with !ping
 
 ## 5. Commit your code to github
 In github desktop:
@@ -63,3 +65,13 @@ In github desktop:
 5. Push your changes to master
 
 __What is the difference between commit and push?__ Commit saves those changes to the local git repository on your computer, it allows you to name and describe the changes you have made. Push uploads those changes to github where they can be viewed online. With one push you can push many commits, this may help if you are making multiple changes.
+
+## 6. Merge your code with the main repository
+In your forked repository:
+1. Head to pull requests
+2. Click new pull request
+3. Give your request a name and comment
+4. Click Create pull request
+5. Your code will be reviewed then added to the main repository
+
+__What if multiple people are working on the same code?__ This is why we are using git, if they are working on different parts of the code there will not be a problem. If two people change the same code, it may need to be decided which code is being used.
