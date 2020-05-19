@@ -54,7 +54,7 @@ __How do I set up my own discord bot client?__ [How to set up your own bot](http
 
 __How do I know if it has been set up correctly?__ First launch the project from App.java, then try using the !ping command to check you have everything working
 
-_Why is my bot still appearing online?__ Once you stop your code from running it will take a few minutes for discord to update the bots status to offline, your bot should no longer be running and you can test this with !ping
+__Why is my bot still appearing online?__ Once you stop your code from running it will take a few minutes for discord to update the bots status to offline, your bot should no longer be running and you can test this with !ping
 
 ## 5. Commit your code to github
 In github desktop:
