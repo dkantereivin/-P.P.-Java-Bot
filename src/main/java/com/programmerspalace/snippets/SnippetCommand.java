@@ -1,4 +1,4 @@
-package snippets;
+package com.programmerspalace.snippets;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -12,7 +12,6 @@ public class SnippetCommand extends Command {
 
 	@Override
 	protected void execute(CommandEvent event) {
-		// TODO Auto-generated method stub
 		
 	}
 
