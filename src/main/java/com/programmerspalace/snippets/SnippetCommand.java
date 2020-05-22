@@ -12,7 +12,7 @@ public class SnippetCommand extends Command {
 
 	@Override
 	protected void execute(CommandEvent event) {
-		
+		event.reply("hello");
 	}
 
 }
