@@ -12,6 +12,7 @@ import javax.security.auth.login.LoginException;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.examples.command.PingCommand;
+import com.programmerspalace.snippets.SnippetCommand;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -43,10 +44,12 @@ public class App {
 		
 		client.useDefaultGame();
 		client.setPrefix(prefix);
+		client.setOwnerId("184641676457803777"); //sammie's discord id todo: change to canter
 		
 		//add commands here
 		//a simple ping command, built into JDAUtilities
 		client.addCommand(new PingCommand());
+		client.addCommand(new SnippetCommand());
 
 		//build the JDA
 		try {
