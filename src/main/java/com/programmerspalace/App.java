@@ -1,12 +1,5 @@
 package com.programmerspalace;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javax.security.auth.login.LoginException;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
@@ -18,25 +11,16 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
 public class App {
-    public static void main(String[] args) {
-    	//create a list to store the contents of the config file
-		List<String> configFile;
+	public static void main(String[] args) {
+		//read all settings
+		Settings.init();		
 		
-		//open the config file and add all lines to the configFile list
-		try(Stream<String> lines = Files.lines(Paths.get("config.conf"))) {
-			configFile = lines.collect(Collectors.toList());
-		} catch (IOException e) {
-			//if token cant be found, bot cant be run
-			//print stack then exit program
-			e.printStackTrace();
-			return;
-		}
-		
-		//the first line should contain a discord token
-		String token = configFile.get(0);
-		//the second line should contain the default command prefix
-		String prefix = configFile.get(1);
-		
+		//get the discord token
+		String token = Settings.getSetting("token");
+		//get the prefix
+		String prefix = Settings.getSetting("prefix");
+		//get the owner id
+		String ownerid = Settings.getSetting("owner");
 		
 		//setting up JDAUtilities
 		EventWaiter waiter = new EventWaiter();
@@ -44,7 +28,7 @@ public class App {
 		
 		client.useDefaultGame();
 		client.setPrefix(prefix);
-		client.setOwnerId("184641676457803777"); //sammie's discord id todo: change to canter
+		client.setOwnerId(ownerid); //sammie's discord id todo: change to canter
 		
 		//add commands here
 		//a simple ping command, built into JDAUtilities
