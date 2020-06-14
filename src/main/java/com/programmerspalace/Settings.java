@@ -29,9 +29,10 @@ public class Settings {
 		String settingName = setting.substring(0, colon).trim();
 		settingName = settingName.substring(1, settingName.length()-1);
 		
-		String settingContent = setting.substring(colon, setting.length()).trim();
+		String settingContent = setting.substring(colon+1, setting.length()).trim();
 		settingContent = settingContent.substring(1, settingContent.length()-1);
 		
+		//add setting to the map
 		settings.put(settingName, settingContent);
 	}
 	
@@ -40,20 +41,21 @@ public class Settings {
 	 * ToDo connect to the database and read all settings from the database
 	 */
 	public static void init() {
+		System.out.println("Settings.init Loading settings from config file");
 		//LOAD CONFIG FILE
-    	//create a list to store the contents of the config file
-		List<String> configFile;
 		
-		//open the config file and add all lines to the configFile list
-		try(Stream<String> lines = Files.lines(Paths.get("config.conf"))) {
-			configFile = lines.collect(Collectors.toList());
+		//open the config file and add all lines to the settings list
+		try(Stream<String> lines = Files.lines(Paths.get("config/config.conf"))) {
+			lines.forEach(setting -> addSetting(setting));
 		} catch (IOException e) {
 			//file not found
 			e.printStackTrace();
 			return;
 		}
 		
-		configFile.stream().forEach(setting -> addSetting(setting));
+		System.out.println("Settings.init Loading settings from MongoDB");
+		
+		
 	}
 	
 	/**

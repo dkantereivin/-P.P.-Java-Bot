@@ -6,6 +6,7 @@ import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.examples.command.PingCommand;
 import com.programmerspalace.snippets.SnippetCommand;
+import com.programmerspalace.snippets.SnippetsMorphiaConnection;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -13,7 +14,9 @@ import net.dv8tion.jda.api.JDABuilder;
 public class App {
 	public static void main(String[] args) {
 		//read all settings
-		Settings.init();		
+		Settings.init();
+		//open morphia connection
+		SnippetsMorphiaConnection.init();
 		
 		//get the discord token
 		String token = Settings.getSetting("token");
@@ -40,6 +43,7 @@ public class App {
 			JDA jda = JDABuilder.createDefault(token)
 					.addEventListeners(waiter, client.build())
 					.build();
+			System.out.println("App.main JDA success");
 		} catch (LoginException e) {
 			//cannot log in
 			//print stack then exit program
