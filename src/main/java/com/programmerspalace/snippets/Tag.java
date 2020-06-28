@@ -23,11 +23,15 @@ public class Tag {
 	
 	public Tag(String tag) {
 		super();
-		this.tag = tag;
+		this.tag = tag.toLowerCase();
 	}
 
-	public String getTag() {
+	@Override
+	public String toString() {
 		return tag;
 	}
 	
+	public boolean equals(Tag t) {
+		return tag.equals(t.tag);
+	}
 }

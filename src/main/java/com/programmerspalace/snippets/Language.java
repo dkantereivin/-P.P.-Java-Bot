@@ -26,7 +26,8 @@ public class Language {
 		this.language = language;
 	}
 
-	public String getLanguage() {
+	@Override
+	public String toString() {
 		return language;
 	}
 	
