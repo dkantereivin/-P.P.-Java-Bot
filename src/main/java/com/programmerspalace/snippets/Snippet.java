@@ -1,5 +1,8 @@
 package com.programmerspalace.snippets;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
 
@@ -12,47 +15,101 @@ import dev.morphia.annotations.Id;
  */
 @Entity("snippets")
 public class Snippet {
+	static final long millisecondsInADay = 1000 * 60 * 60 * 24;
+
 	@Id
-	private String id;
-	private String language;
 	private String title;
-	private String[] tags;
+	private Language language;
+	private Tag[] tags;
 	private String code;
-	
+	private float uses;
+	private long lastUsed;
+
+	/**
+	 * defualt constructor, do not use to create a snippet
+	 */
 	public Snippet() {
 		super();
-		//generate id
-		this.id = Long.toHexString(System.nanoTime()) + Long.toHexString((long) (Math.random()*Long.MAX_VALUE));
+		uses = 0;
+		lastUsed = System.currentTimeMillis();
 	}
-	
-	public Snippet(String title, String language, String[] tags, String code) {
+
+	/**
+	 * use this constructor to create a snippet
+	 * 
+	 * @param title the name of the snippet, will be shown on all menus
+	 * @param language the coding language the snippet is written in e.g. java, python
+	 * @param tags the tags relating to the snippet, used for identifying and searching through snippets
+	 * @param code the actual code of the snippet, will be shown in a discord code block formatted in the langauge
+	 */
+	public Snippet(String title, Language language, Tag[] tags, String code) {
 		super();
-		//generate id
-		this.id = Long.toHexString(System.nanoTime()) + Long.toHexString((long) (Math.random()*Long.MAX_VALUE));
+		uses = 0;
+		lastUsed = System.currentTimeMillis();
 		this.language = language;
 		this.title = title;
 		this.tags = tags;
 		this.code = code;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public String getLanguage() {
+	/**
+	 * @return the language the snippet was written for
+	 */
+	public Language getLanguage() {
 		return language;
 	}
-	
+
+	/**
+	 * @return the name of the snippet
+	 */
 	public String getTitle() {
 		return title;
 	}
 
-	public String[] getTags() {
+	/**
+	 * @return returns an array of all the tags used in the snippet
+	 */
+	public Tag[] getTags() {
 		return tags;
 	}
 
+	/**
+	 * @return returns the code relating to the snippet, unformatted
+	 */
 	public String getCode() {
 		return code;
 	}
-	
+
+	/**
+	 * the number of uses goes down over time, 
+	 * @return a number representing the uses of a snippet recently
+	 */
+	public float getUses() {
+		long now = System.currentTimeMillis();
+		int daysPassed = (int) (now/millisecondsInADay - lastUsed/millisecondsInADay);
+
+		if (daysPassed > 0) {
+			uses /= Math.pow(2, daysPassed);
+			lastUsed = now;
+		}
+				
+		return uses;
+	}
+	/**
+	 * increases the number of uses by 1
+	 */
+	public void incUses() {
+		uses = getUses() + 1;
+	}
+
+	/**
+	 * @return returns a formatted string representation of the snippet ready for sending as a discord message
+	 */
+	public String asReply() {
+		return ">>> " + getTitle() + "\n"
+				+ getLanguage().toString() + ", "
+				+ Arrays.asList(getTags()).stream().map(Tag::toString).collect(Collectors.joining(", ")) + "\n```"
+				+ getLanguage() + "\n"
+				+ getCode() + "```";
+	}
 }

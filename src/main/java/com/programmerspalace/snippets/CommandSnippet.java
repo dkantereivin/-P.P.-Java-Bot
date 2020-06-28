@@ -12,9 +12,9 @@ import dev.morphia.query.experimental.filters.Filters;
  *  @author Sam
  *
  */
-public class SnippetCommand extends Command {
+public class CommandSnippet extends Command {
 
-	public SnippetCommand() {
+	public CommandSnippet() {
 		this.name = "snippet";
 		this.arguments = "<snippet name>";
 		this.help = "find pre-written code";
@@ -28,13 +28,20 @@ public class SnippetCommand extends Command {
 		//find the snippet
 		Snippet snippet = SnippetsMorphiaConnection.getDatastore()
 				.find(Snippet.class) //use the snippets collection
-				.filter(Filters.eq("title", args)) //filter so that its only the ones with the correct
+				.filter(Filters.eq("_id", args)) //filter so that its only the ones with the correct
 				.iterator(new FindOptions()
 						.limit(1)) //limit to one item
 				.tryNext(); //get that item
 
+		if (snippet != null) {
 		//print that item
-		//TODO replace with an embed builder
-		event.reply(">>> " + snippet.getTitle() + "\n" + snippet.getTags() + "\n```" + snippet.getLanguage() + "\n" + snippet.getCode() + "```");
+		event.reply(snippet.asReply());
+		
+		snippet.incUses();
+		SnippetsMorphiaConnection.getDatastore().save(snippet);
+		
+		} else {
+			event.reply("There exists no snippet with this name");
+		}
 	}
 }
