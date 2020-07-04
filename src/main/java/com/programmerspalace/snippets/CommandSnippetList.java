@@ -121,6 +121,7 @@ class SnippetListFinder {
 				() -> onTimeout(false, () -> {attachReactWaiter(event);}));
 	}
 
+	
 	/**
 	 * when a tag is provided, add it to the list
 	 * @param event
@@ -425,7 +426,7 @@ public class CommandSnippetList extends Command {
 
 	public CommandSnippetList(EventWaiter waiter) {
 		this.name = "snippets";
-		this.aliases = new String[] {"snippetlist"};
+		this.aliases = new String[] {"snippetlist", "snippetList"};
 		this.arguments = "<tag tag tag...>";
 		this.help = "search through a list of prewritten code using tags";
 		this.waiter = waiter;

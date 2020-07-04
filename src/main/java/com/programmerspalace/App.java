@@ -6,6 +6,7 @@ import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.examples.command.PingCommand;
 import com.programmerspalace.snippets.CommandSnippet;
+import com.programmerspalace.snippets.CommandSnippetAdd;
 import com.programmerspalace.snippets.CommandSnippetList;
 import com.programmerspalace.snippets.SnippetsMorphiaConnection;
 
@@ -32,13 +33,14 @@ public class App {
 		
 		client.useDefaultGame();
 		client.setPrefix(prefix);
-		client.setOwnerId(ownerid); //sammie's discord id todo: change to canter
+		client.setOwnerId(ownerid);
 				
 		//add commands here
 		//a simple ping command, built into JDAUtilities
 		client.addCommand(new PingCommand());
 		client.addCommand(new CommandSnippet());
 		client.addCommand(new CommandSnippetList(waiter));
+		client.addCommand(new CommandSnippetAdd(waiter));
 		
 		//build the JDA
 		try {
