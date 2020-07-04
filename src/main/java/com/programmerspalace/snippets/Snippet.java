@@ -18,10 +18,10 @@ public class Snippet {
 	static final long millisecondsInADay = 1000 * 60 * 60 * 24;
 
 	@Id
-	private String title;
-	private Language language;
-	private Tag[] tags;
-	private String code;
+	private String title = "";
+	private Language language = new Language("");
+	private Tag[] tags = new Tag[] {};
+	private String code = "";
 	private float uses;
 	private long lastUsed;
 
@@ -58,12 +58,18 @@ public class Snippet {
 	public Language getLanguage() {
 		return language;
 	}
-
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+	
 	/**
 	 * @return the name of the snippet
 	 */
 	public String getTitle() {
 		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/**
@@ -72,14 +78,24 @@ public class Snippet {
 	public Tag[] getTags() {
 		return tags;
 	}
-
+	public void setTags(Tag[] tags) {
+		this.tags = tags;
+	}
+	public void addTag(Tag tag) {
+		tags = Arrays.copyOf(tags, tags.length + 1);
+		tags[tags.length-1] = tag;
+	}
+	
 	/**
 	 * @return returns the code relating to the snippet, unformatted
 	 */
 	public String getCode() {
 		return code;
 	}
-
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 	/**
 	 * the number of uses goes down over time, 
 	 * @return a number representing the uses of a snippet recently
